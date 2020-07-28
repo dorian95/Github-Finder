@@ -12,11 +12,13 @@ class App extends Component {
       React.createElement('h1', null, 'Hello from React')
     );
     */
+    const name = 'John Doe';
+    const loading = true;
 
     return (
       // JSX must have 1 parent element
       <div className='App'>
-        <h1>Hello from React</h1>
+        {loading ? <h4>Loading</h4> : <h1>Hello {name}</h1>}
       </div>
     );
   }
