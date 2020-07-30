@@ -10,7 +10,9 @@ class App extends Component {
       // JSX must have 1 parent element
       <div className='App'>
         <Navbar />
-        <Users />
+        <div className='container'>
+          <Users />
+        </div>
       </div>
     );
   }
