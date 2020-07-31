@@ -10,17 +10,15 @@ class App extends Component {
     users: [],
     loading: false,
   };
-  // life cycle method
-  async componentDidMount() {
-    // can't directly change state in class-based components in React
-    this.setState({ loading: true });
 
+  // Search Github users
+  searchUsers = async (text) => {
     const res = await axios.get(
-      `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&
+      `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&
       client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
     );
-    this.setState({ users: res.data, loading: false });
-  }
+    this.setState({ users: res.data.items, loading: false });
+  };
 
   // life cycle method, renders the output
   render() {
@@ -29,7 +27,7 @@ class App extends Component {
       <div className='App'>
         <Navbar />
         <div className='container'>
-          <Search />
+          <Search searchUsers={this.searchUsers} />
           <Users loading={this.state.loading} users={this.state.users} />
         </div>
       </div>
