@@ -27,13 +27,19 @@ class App extends Component {
 
   // life cycle method, renders the output
   render() {
+    const { users, loading } = this.state;
+
     return (
       // JSX must have 1 parent element
       <div className='App'>
         <Navbar />
         <div className='container'>
-          <Search searchUsers={this.searchUsers} clearUsers={this.clearUsers} />
-          <Users loading={this.state.loading} users={this.state.users} />
+          <Search
+            searchUsers={this.searchUsers}
+            clearUsers={this.clearUsers}
+            showClear={users.length > 0 ? true : false}
+          />
+          <Users loading={loading} users={users} />
         </div>
       </div>
     );
