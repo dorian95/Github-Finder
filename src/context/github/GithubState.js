@@ -36,7 +36,7 @@ const GithubState = (props) => {
 
     dispatch({
       type: SEARCH_USERS,
-      payload: res.data,
+      payload: res.data.items,
     });
   };
 
@@ -57,6 +57,7 @@ const GithubState = (props) => {
         user: state.user,
         repos: state.repos,
         loading: state.loading,
+        searchUsers,
       }}
     >
       {props.children}
