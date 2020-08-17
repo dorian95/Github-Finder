@@ -26,6 +26,19 @@ const GithubState = (props) => {
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
   // Search Users
+  const searchUsers = async (text) => {
+    setLoading();
+
+    const res = await axios.get(
+      `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&
+      client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+
+    dispatch({
+      type: SEARCH_USERS,
+      payload: res.data,
+    });
+  };
 
   // Get User
 
@@ -34,6 +47,7 @@ const GithubState = (props) => {
   // Clear Users
 
   // Set Loading
+  const setLoading = () => dispatch({ type: SET_LOADING });
 
   // takes in value prop and makes it available to entire app
   return (
