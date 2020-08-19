@@ -9,7 +9,7 @@ import './App.css';
 import About from './components/pages/About';
 
 import GithubState from './context/github/GithubState';
-import AlertState from './context/github/AlertState';
+import AlertState from './context/alert/AlertState';
 
 const App = () => {
   return (
