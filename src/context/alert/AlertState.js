@@ -18,7 +18,6 @@ const AlertState = (props) => {
     setTimeout(() => dispatch({ type: REMOVE_ALERT }), 5000);
   };
 
-  // takes in value prop and makes it available to entire app
   return (
     <AlertContext.Provider
       value={{
