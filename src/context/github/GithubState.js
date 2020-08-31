@@ -1,10 +1,11 @@
 /**
  * Stores initial Github state, takes in actions
  */
-import React, { useReducer, Fragment } from 'react';
+import React, { useReducer } from 'react';
 import axios from 'axios';
-import GithubContext from './githubContext';
 import GithubReducer from './githubReducer';
+import GithubContext from './githubContext';
+
 import {
   SEARCH_USERS,
   SET_LOADING,
@@ -12,7 +13,17 @@ import {
   GET_USER,
   GET_REPOS,
 } from '../types';
-import githubContext from './githubContext';
+
+let githubClientId;
+let githubClientSecret;
+
+if (process.env.NODE_ENV !== 'production') {
+  githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+  githubClientSecret = process.REACT_APP_GITHUB_CLIENT_SECRET;
+} else {
+  githubClientId = process.env.GITHUB_CLIENT_ID;
+  githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
+}
 
 const GithubState = (props) => {
   const initialState = {
@@ -30,8 +41,8 @@ const GithubState = (props) => {
     setLoading();
 
     const res = await axios.get(
-      `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&
-      client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      `https://api.github.com/search/users?q=${text}&client_id=${githubClientId}&
+      client_secret=${githubClientSecret}`
     );
 
     dispatch({
@@ -45,8 +56,8 @@ const GithubState = (props) => {
     setLoading();
 
     const res = await axios.get(
-      `https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&
-      client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      `https://api.github.com/users/${username}?client_id=${githubClientId}&
+      client_secret=${githubClientSecret}`
     );
 
     dispatch({
@@ -59,8 +70,8 @@ const GithubState = (props) => {
     setLoading();
 
     const res = await axios.get(
-      `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&
-      client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${githubClientId}&
+      client_secret=${githubClientSecret}`
     );
 
     dispatch({
@@ -80,7 +91,7 @@ const GithubState = (props) => {
 
   // takes in value prop and makes it available to entire app
   return (
-    <githubContext.Provider
+    <GithubContext.Provider
       value={{
         users: state.users,
         user: state.user,
@@ -93,7 +104,7 @@ const GithubState = (props) => {
       }}
     >
       {props.children}
-    </githubContext.Provider>
+    </GithubContext.Provider>
   );
 };
 
