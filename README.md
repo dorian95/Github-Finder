@@ -1,3 +1,5 @@
+This project has been deployed on Netlify https://githubfinder2295.netlify.app/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
